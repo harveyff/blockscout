@@ -55,10 +55,14 @@ defmodule Indexer.Block.Fetcher do
               %{
                 address_hash_to_fetched_balance_block_number: address_hash_to_fetched_balance_block_number,
                 addresses: Import.Runner.options(),
+                address_coin_balances: Import.Runner.options(),
+                address_coin_balances_daily: Import.Runner.options(),
                 address_token_balances: Import.Runner.options(),
                 blocks: Import.Runner.options(),
                 block_second_degree_relations: Import.Runner.options(),
+                block_rewards: Import.Runner.options(),
                 broadcast: term(),
+                logs: Import.Runner.options(),
                 token_transfers: Import.Runner.options(),
                 tokens: Import.Runner.options(),
                 transactions: Import.Runner.options()
