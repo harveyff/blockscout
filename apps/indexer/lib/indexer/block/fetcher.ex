@@ -152,6 +152,20 @@ defmodule Indexer.Block.Fetcher do
              transactions: transactions_with_receipts,
              transaction_actions: transaction_actions
            }),
+         coin_balances_params_set =
+           %{
+             beneficiary_params: MapSet.to_list(beneficiary_params_set),
+             blocks_params: blocks,
+             logs_params: logs,
+             transactions_params: transactions_with_receipts
+           }
+           |> AddressCoinBalances.params_set(),
+         coin_balances_params_daily_set =
+           %{
+             coin_balances_params: coin_balances_params_set,
+             blocks: blocks
+           }
+           |> AddressCoinBalancesDaily.params_set(),
          beneficiaries_with_gas_payment =
            beneficiaries_with_gas_payment(blocks, beneficiary_params_set, transactions_with_receipts),
          address_token_balances = AddressTokenBalances.params_set(%{token_transfers_params: token_transfers}),
@@ -162,6 +176,8 @@ defmodule Indexer.Block.Fetcher do
              state,
              %{
                addresses: %{params: addresses},
+               address_coin_balances: %{params: []},
+               address_coin_balances_daily: %{params: []},
                address_token_balances: %{params: address_token_balances},
                blocks: %{params: blocks},
                block_second_degree_relations: %{params: block_second_degree_relations_params},
