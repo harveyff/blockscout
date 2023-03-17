@@ -439,12 +439,17 @@ defmodule Indexer.Block.Realtime.Fetcher do
 
         block_timestamp_map = CoinBalance.block_timestamp_map(params_list, json_rpc_named_arguments)
 
-
+        importable_balances_daily_params =
+          Enum.map(params_list, fn param ->
+            day = Map.get(block_timestamp_map, "#{param.block_number}")
+            (day && Map.put(param, :day, day)) || param
+          end)
 
         {:ok,
          %{
            addresses_params: merged_addresses_params,
-           balances_params: importable_balances_params
+           balances_params: importable_balances_params,
+           balances_daily_params: importable_balances_daily_params
          }}
 
       {:error, _} = error ->
