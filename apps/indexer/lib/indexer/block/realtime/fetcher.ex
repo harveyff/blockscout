@@ -298,7 +298,7 @@ defmodule Indexer.Block.Realtime.Fetcher do
   @decorate span(tracer: Tracer)
   defp do_fetch_and_import_block(block_number_to_fetch, block_fetcher, retry) do
     time_before = Timex.now()
-
+    Logger.info("do_fetch_and_import_block #{block_number_to_fetch}");
     {fetch_duration, result} =
       :timer.tc(fn -> fetch_and_import_range(block_fetcher, block_number_to_fetch..block_number_to_fetch) end)
 
@@ -409,12 +409,12 @@ defmodule Indexer.Block.Realtime.Fetcher do
          imported,
          %{block_rewards: %{errors: block_reward_errors}}
        ) do
-    async_import_block_rewards(block_reward_errors)
+    #async_import_block_rewards(block_reward_errors)
     async_import_created_contract_codes(imported)
-    async_import_internal_transactions(imported)
+    #async_import_internal_transactions(imported)
     async_import_tokens(imported)
     async_import_token_balances(imported)
-    async_import_token_instances(imported)
+    #async_import_token_instances(imported)
     async_import_uncles(imported)
     async_import_replaced_transactions(imported)
   end
