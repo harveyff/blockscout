@@ -16,7 +16,7 @@ defmodule Indexer.Block.Catchup.Fetcher do
       async_import_replaced_transactions: 1,
       async_import_tokens: 1,
       async_import_token_balances: 1,
-      #async_import_token_instances: 1,
+      async_import_token_instances: 1,
       async_import_uncles: 1,
       fetch_and_import_range: 2
     ]
@@ -139,15 +139,15 @@ defmodule Indexer.Block.Catchup.Fetcher do
          imported,
          %{block_rewards: %{errors: block_reward_errors}} = options
        ) do
-    async_import_block_rewards(block_reward_errors)
-    async_import_coin_balances(imported, options)
+    #async_import_block_rewards(block_reward_errors)
+    #async_import_coin_balances(imported, options)
     async_import_created_contract_codes(imported)
     async_import_internal_transactions(imported)
     async_import_tokens(imported)
     async_import_token_balances(imported)
     async_import_uncles(imported)
     async_import_replaced_transactions(imported)
-    async_import_token_instances(imported)
+    #async_import_token_instances(imported)
   end
 
   defp stream_fetch_and_import(state, sequence)
