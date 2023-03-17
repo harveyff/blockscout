@@ -82,10 +82,10 @@ defmodule Explorer.Application do
 
   defp configurable_children do
     [
-      configure(Explorer.ExchangeRates),
+      #configure(Explorer.ExchangeRates),
       configure(Explorer.ChainSpec.GenesisData),
       configure(Explorer.KnownTokens),
-      configure(Explorer.Market.History.Cataloger),
+      #configure(Explorer.Market.History.Cataloger),
       configure(Explorer.Chain.Cache.TokenExchangeRate),
       configure(Explorer.Chain.Cache.ContractsCounter),
       configure(Explorer.Chain.Cache.NewContractsCounter),
@@ -103,7 +103,7 @@ defmodule Explorer.Application do
       configure(Explorer.Counters.TokenTransfersCounter),
       configure(Explorer.Counters.BlockBurnedFeeCounter),
       configure(Explorer.Counters.BlockPriorityFeeCounter),
-      configure(Explorer.Counters.AverageBlockTime),
+      #configure(Explorer.Counters.AverageBlockTime),
       configure(Explorer.Counters.Bridge),
       configure(Explorer.Validator.MetadataProcessor),
       configure(Explorer.Tags.AddressTag.Cataloger),
