@@ -200,7 +200,7 @@ defmodule Indexer.Block.Catchup.BoundIntervalSupervisor do
     new_bound_interval =
       case missing_block_count do
         0 ->
-          Logger.info("Index already caught up.",
+          Logger.debug("Index already caught up.",
             first_block_number: first_block_number,
             last_block_number: last_block_number,
             missing_block_count: 0,
@@ -225,7 +225,7 @@ defmodule Indexer.Block.Catchup.BoundIntervalSupervisor do
 
     interval = new_bound_interval.current
 
-    Logger.info(fn ->
+    Logger.debug(fn ->
       ["Checking if index needs to catch up in ", to_string(interval), "ms."]
     end)
 
