@@ -16,22 +16,22 @@ defmodule BlockScoutWeb.RealtimeEventHandler do
   @impl true
   def init([]) do
     Helper.create_cache_table(:last_broadcasted_block)
-    Subscriber.to(:address_coin_balances, :realtime)
+    #Subscriber.to(:address_coin_balances, :realtime)
     Subscriber.to(:addresses, :realtime)
-    Subscriber.to(:block_rewards, :realtime)
+    #Subscriber.to(:block_rewards, :realtime)
     Subscriber.to(:blocks, :realtime)
     Subscriber.to(:internal_transactions, :realtime)
     Subscriber.to(:internal_transactions, :on_demand)
     Subscriber.to(:token_transfers, :realtime)
     Subscriber.to(:transactions, :realtime)
     Subscriber.to(:addresses, :on_demand)
-    Subscriber.to(:address_coin_balances, :on_demand)
+    #Subscriber.to(:address_coin_balances, :on_demand)
     Subscriber.to(:address_token_balances, :on_demand)
     Subscriber.to(:contract_verification_result, :on_demand)
-    Subscriber.to(:token_total_supply, :on_demand)
+    #Subscriber.to(:token_total_supply, :on_demand)
     Subscriber.to(:changed_bytecode, :on_demand)
     # Does not come from the indexer
-    Subscriber.to(:exchange_rate)
+    #Subscriber.to(:exchange_rate)
     Subscriber.to(:transaction_stats)
     {:ok, []}
   end
