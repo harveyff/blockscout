@@ -9,8 +9,8 @@ defmodule Explorer.Account.Notify do
   require Logger
 
   def async(transactions) do
-    Logger.info('Notify async---');
-    Task.async(fn -> process(transactions) end)
+    #Logger.info('Notify async---');
+    #Task.async(fn -> process(transactions) end)
   end
 
   defp process(transactions) do
