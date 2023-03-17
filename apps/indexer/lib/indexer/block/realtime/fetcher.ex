@@ -13,13 +13,13 @@ defmodule Indexer.Block.Realtime.Fetcher do
 
   import Indexer.Block.Fetcher,
     only: [
-      async_import_block_rewards: 1,
+      #async_import_block_rewards: 1,
       async_import_created_contract_codes: 1,
       async_import_internal_transactions: 1,
       async_import_replaced_transactions: 1,
       async_import_tokens: 1,
       async_import_token_balances: 1,
-      async_import_token_instances: 1,
+      #async_import_token_instances: 1,
       async_import_uncles: 1,
       fetch_and_import_range: 2
     ]
@@ -439,17 +439,12 @@ defmodule Indexer.Block.Realtime.Fetcher do
 
         block_timestamp_map = CoinBalance.block_timestamp_map(params_list, json_rpc_named_arguments)
 
-        importable_balances_daily_params =
-          Enum.map(params_list, fn param ->
-            day = Map.get(block_timestamp_map, "#{param.block_number}")
-            (day && Map.put(param, :day, day)) || param
-          end)
+
 
         {:ok,
          %{
            addresses_params: merged_addresses_params,
-           balances_params: importable_balances_params,
-           balances_daily_params: importable_balances_daily_params
+           balances_params: importable_balances_params
          }}
 
       {:error, _} = error ->
