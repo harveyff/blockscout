@@ -24,7 +24,7 @@ defmodule Indexer.Supervisor do
     ReplacedTransaction,
     Token,
     #TokenBalance,
-    TokenInstance,
+    #TokenInstance,
     TokenUpdater,
     TransactionAction,
     UncleBlock
