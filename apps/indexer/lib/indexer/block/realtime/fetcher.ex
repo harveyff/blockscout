@@ -196,8 +196,7 @@ defmodule Indexer.Block.Realtime.Fetcher do
           address_coin_balances: %{params: address_coin_balances_params},
           address_coin_balances_daily: %{params: address_coin_balances_daily_params},
           address_hash_to_fetched_balance_block_number: address_hash_to_block_number,
-          addresses: %{params: addresses_params},
-          block_rewards: block_rewards
+          addresses: %{params: addresses_params}
         } = options
       ) do
     with {:balances,
@@ -214,7 +213,6 @@ defmodule Indexer.Block.Realtime.Fetcher do
               balances_params: address_coin_balances_params,
               balances_daily_params: address_coin_balances_daily_params
             })},
-         {block_reward_errors, chain_import_block_rewards} = Map.pop(block_rewards, :errors),
          chain_import_options =
            options
            |> Map.drop(@import_options)
@@ -222,8 +220,7 @@ defmodule Indexer.Block.Realtime.Fetcher do
            |> put_in([:blocks, :params, Access.all(), :consensus], true),
          {:import, {:ok, imported} = ok} <- {:import, Chain.import(chain_import_options)} do
       async_import_remaining_block_data(
-        imported,
-        %{block_rewards: %{errors: block_reward_errors}}
+        imported
       )
 
       Accounts.drop(imported[:addresses])
@@ -403,8 +400,7 @@ defmodule Indexer.Block.Realtime.Fetcher do
   end
 
   defp async_import_remaining_block_data(
-         imported,
-         %{block_rewards: %{errors: block_reward_errors}}
+         imported
        ) do
     #async_import_block_rewards(block_reward_errors)
     async_import_created_contract_codes(imported)
