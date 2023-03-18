@@ -210,7 +210,9 @@ defmodule Indexer.Block.Realtime.Fetcher do
            {:balances,
             balances(block_fetcher, %{
               address_hash_to_block_number: address_hash_to_block_number,
-              addresses_params: addresses_params
+              addresses_params: addresses_params,
+              balances_params: address_coin_balances_params,
+              balances_daily_params: address_coin_balances_daily_params
             })},
          {block_reward_errors, chain_import_block_rewards} = Map.pop(block_rewards, :errors),
          chain_import_options =
