@@ -176,8 +176,6 @@ defmodule Indexer.Block.Fetcher do
              state,
              %{
                addresses: %{params: addresses},
-               address_coin_balances: %{params: []},
-               address_coin_balances_daily: %{params: []},
                address_token_balances: %{params: address_token_balances},
                blocks: %{params: blocks},
                block_second_degree_relations: %{params: block_second_degree_relations_params},
