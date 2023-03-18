@@ -193,11 +193,11 @@ defmodule Indexer.Block.Realtime.Fetcher do
   def import(
         block_fetcher,
         %{
-          #address_coin_balances: %{params: address_coin_balances_params},
-          #address_coin_balances_daily: %{params: address_coin_balances_daily_params},
+          address_coin_balances: %{params: address_coin_balances_params},
+          address_coin_balances_daily: %{params: address_coin_balances_daily_params},
           address_hash_to_fetched_balance_block_number: address_hash_to_block_number,
           addresses: %{params: addresses_params},
-         lock_rewards: block_rewards
+          block_rewards: block_rewards
         } = options
       ) do
     with {:balances,
@@ -211,16 +211,18 @@ defmodule Indexer.Block.Realtime.Fetcher do
             balances(block_fetcher, %{
               address_hash_to_block_number: address_hash_to_block_number,
               addresses_params: addresses_params,
-              #balances_params: address_coin_balances_params,
-             #balances_daily_params: address_coin_balances_daily_params
+              balances_params: address_coin_balances_params,
+              balances_daily_params: address_coin_balances_daily_params
             })},
          {block_reward_errors, chain_import_block_rewards} = Map.pop(block_rewards, :errors),
          chain_import_options =
            options
            |> Map.drop(@import_options)
            |> put_in([:addresses, :params], balances_addresses_params)
-           |> put_in([:blocks, :params, Access.all(), :consensus], true),
-
+           |> put_in([:blocks, :params, Access.all(), :consensus], true)
+           |> put_in([:block_rewards], chain_import_block_rewards)
+           |> put_in([Access.key(:address_coin_balances, %{}), :params], balances_params)
+           |> put_in([Access.key(:address_coin_balances_daily, %{}), :params], balances_daily_params),
          {:import, {:ok, imported} = ok} <- {:import, Chain.import(chain_import_options)} do
       async_import_remaining_block_data(
         imported,
