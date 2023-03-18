@@ -206,17 +206,14 @@ defmodule Indexer.Block.Realtime.Fetcher do
              addresses_params: balances_addresses_params,
              balances_params: balances_params
            }}} <-
-         {block_reward_errors, chain_import_block_rewards} = Map.pop(block_rewards, :errors),
          chain_import_options =
            options
            |> Map.drop(@import_options)
            |> put_in([:addresses, :params], balances_addresses_params)
-           |> put_in([:blocks, :params, Access.all(), :consensus], true)
-           |> put_in([:block_rewards], chain_import_block_rewards),
+           |> put_in([:blocks, :params, Access.all(), :consensus], true),
          {:import, {:ok, imported} = ok} <- {:import, Chain.import(chain_import_options)} do
       async_import_remaining_block_data(
-        imported,
-        %{block_rewards: %{errors: block_reward_errors}}
+        imported
       )
 
       Accounts.drop(imported[:addresses])
