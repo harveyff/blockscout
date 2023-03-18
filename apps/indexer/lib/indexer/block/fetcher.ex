@@ -25,7 +25,7 @@ defmodule Indexer.Block.Fetcher do
     ReplacedTransaction,
     Token,
     TokenBalance,
-    #TokenInstance,
+    TokenInstance,
     UncleBlock
   }
 
