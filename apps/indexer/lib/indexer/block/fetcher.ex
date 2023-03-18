@@ -253,6 +253,7 @@ defmodule Indexer.Block.Fetcher do
   end
 
   def async_import_token_instances(%{token_transfers: token_transfers}) do
+    Logger.info("async_import_token_instances");
     TokenInstance.async_fetch(token_transfers)
   end
 
