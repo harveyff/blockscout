@@ -193,40 +193,14 @@ defmodule Indexer.Block.Realtime.Fetcher do
   def import(
         block_fetcher,
         %{
+          address_coin_balances: %{params: address_coin_balances_params},
+          address_coin_balances_daily: %{params: address_coin_balances_daily_params},
           address_hash_to_fetched_balance_block_number: address_hash_to_block_number,
           addresses: %{params: addresses_params},
           block_rewards: block_rewards
         } = options
       ) do
-    with {:balances,
-          {:ok,
-           %{
-             addresses_params: balances_addresses_params,
-             balances_params: balances_params,
-             balances_daily_params: balances_daily_params
-           }}} <-
-           {:balances,
-            balances(block_fetcher, %{
-              address_hash_to_block_number: address_hash_to_block_number,
-              addresses_params: addresses_params
-            })},
-         {block_reward_errors, chain_import_block_rewards} = Map.pop(block_rewards, :errors),
-         chain_import_options =
-           options
-           |> Map.drop(@import_options)
-           |> put_in([:addresses, :params], balances_addresses_params)
-           |> put_in([:blocks, :params, Access.all(), :consensus], true)
-           |> put_in([:block_rewards], chain_import_block_rewards),
-         {:import, {:ok, imported} = ok} <- {:import, Chain.import(chain_import_options)} do
-      async_import_remaining_block_data(
-        imported,
-        %{block_rewards: %{errors: block_reward_errors}}
-      )
 
-      Accounts.drop(imported[:addresses])
-
-      ok
-    end
   end
 
   def import(_, _) do
