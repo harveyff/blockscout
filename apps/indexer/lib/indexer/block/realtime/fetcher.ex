@@ -210,19 +210,14 @@ defmodule Indexer.Block.Realtime.Fetcher do
            {:balances,
             balances(block_fetcher, %{
               address_hash_to_block_number: address_hash_to_block_number,
-              addresses_params: addresses_params,
-              balances_params: address_coin_balances_params,
-              balances_daily_params: address_coin_balances_daily_params
+              addresses_params: addresses_params
             })},
          {block_reward_errors, chain_import_block_rewards} = Map.pop(block_rewards, :errors),
          chain_import_options =
            options
            |> Map.drop(@import_options)
            |> put_in([:addresses, :params], balances_addresses_params)
-           |> put_in([:blocks, :params, Access.all(), :consensus], true)
-           |> put_in([:block_rewards], chain_import_block_rewards)
-           |> put_in([Access.key(:address_coin_balances, %{}), :params], balances_params)
-           |> put_in([Access.key(:address_coin_balances_daily, %{}), :params], balances_daily_params),
+           |> put_in([:blocks, :params, Access.all(), :consensus], true),
          {:import, {:ok, imported} = ok} <- {:import, Chain.import(chain_import_options)} do
       async_import_remaining_block_data(
         imported,
