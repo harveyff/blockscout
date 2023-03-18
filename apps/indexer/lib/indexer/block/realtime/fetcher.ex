@@ -219,7 +219,7 @@ defmodule Indexer.Block.Realtime.Fetcher do
            options
            |> Map.drop(@import_options)
            |> put_in([:addresses, :params], balances_addresses_params)
-           |> put_in([:blocks, :params, Access.all(), :consensus], true)
+           |> put_in([:blocks, :params, Access.all(), :consensus], true),
 
          {:import, {:ok, imported} = ok} <- {:import, Chain.import(chain_import_options)} do
       async_import_remaining_block_data(
