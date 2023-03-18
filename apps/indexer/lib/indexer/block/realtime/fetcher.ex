@@ -207,11 +207,7 @@ defmodule Indexer.Block.Realtime.Fetcher do
              balances_params: balances_params,
              balances_daily_params: balances_daily_params
            }}} <-
-           {:balances,
-            balances(block_fetcher, %{
-              address_hash_to_block_number: address_hash_to_block_number,
-              addresses_params: addresses_params
-            })},
+
          {block_reward_errors, chain_import_block_rewards} = Map.pop(block_rewards, :errors),
          chain_import_options =
            options
@@ -409,7 +405,7 @@ defmodule Indexer.Block.Realtime.Fetcher do
     async_import_created_contract_codes(imported)
     #async_import_internal_transactions(imported)
     async_import_tokens(imported)
-    async_import_token_balances(imported)
+    #async_import_token_balances(imported)
     #async_import_token_instances(imported)
     async_import_uncles(imported)
     async_import_replaced_transactions(imported)
