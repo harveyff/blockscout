@@ -18,7 +18,7 @@ defmodule Indexer.Block.Realtime.Fetcher do
       async_import_internal_transactions: 1,
       async_import_replaced_transactions: 1,
       async_import_tokens: 1,
-      async_import_token_balances: 1,
+      #async_import_token_balances: 1,
       #async_import_token_instances: 1,
       async_import_uncles: 1,
       fetch_and_import_range: 2
@@ -220,9 +220,7 @@ defmodule Indexer.Block.Realtime.Fetcher do
            |> Map.drop(@import_options)
            |> put_in([:addresses, :params], balances_addresses_params)
            |> put_in([:blocks, :params, Access.all(), :consensus], true)
-           |> put_in([:block_rewards], chain_import_block_rewards)
-           |> put_in([Access.key(:address_coin_balances, %{}), :params], balances_params)
-           |> put_in([Access.key(:address_coin_balances_daily, %{}), :params], balances_daily_params),
+           |> put_in([:block_rewards], chain_import_block_rewards),
          {:import, {:ok, imported} = ok} <- {:import, Chain.import(chain_import_options)} do
       async_import_remaining_block_data(
         imported,
@@ -413,7 +411,7 @@ defmodule Indexer.Block.Realtime.Fetcher do
     async_import_created_contract_codes(imported)
     #async_import_internal_transactions(imported)
     async_import_tokens(imported)
-    async_import_token_balances(imported)
+    #async_import_token_balances(imported)
     #async_import_token_instances(imported)
     async_import_uncles(imported)
     async_import_replaced_transactions(imported)
