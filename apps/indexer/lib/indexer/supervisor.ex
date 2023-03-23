@@ -11,7 +11,7 @@ defmodule Indexer.Supervisor do
     PendingTransactionsSanitizer
   }
   # Catchup,Realtime
-  alias Indexer.Block.{Realtime}
+  alias Indexer.Block.{Catchup,Realtime}
 
   alias Indexer.Fetcher.{
     BlockReward,
