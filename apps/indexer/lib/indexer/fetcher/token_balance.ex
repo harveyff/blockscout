@@ -133,7 +133,7 @@ defmodule Indexer.Fetcher.TokenBalance do
     addresses_params = format_and_filter_address_params(token_balances_params)
     formatted_token_balances_params = format_and_filter_token_balance_params(token_balances_params)
     Logger.info("import_token_balances---");
-    Logger.info(length(formatted_token_balances_params))
+    Logger.info(token_balances_params)
     import_params = %{
       addresses: %{params: addresses_params},
       address_token_balances: %{params: formatted_token_balances_params},
