@@ -129,10 +129,17 @@ defmodule Indexer.Fetcher.TokenBalance do
   end
 
   def import_token_balances(token_balances_params) do
-    Logger.info("import_token_balances---");
+
     addresses_params = format_and_filter_address_params(token_balances_params)
     formatted_token_balances_params = format_and_filter_token_balance_params(token_balances_params)
-    Logger.info(formatted_token_balances_params.block_number+" "+formatted_token_balances_params.address_hash+" "+formatted_token_balances_params.token_contract_address_hash);
+        Logger.info("import_token_balances---,"+formatted_token_balances_params.length);
+
+      formatted_token_balances_params
+        |> Enum.map(fn tb ->
+           Logger.info(tb.block_number+" "+tb.address_hash+" "+tb.token_contract_address_hash);
+        end)
+
+
     import_params = %{
       addresses: %{params: addresses_params},
       address_token_balances: %{params: formatted_token_balances_params},
