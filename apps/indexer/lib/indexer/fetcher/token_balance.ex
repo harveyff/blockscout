@@ -93,6 +93,8 @@ defmodule Indexer.Fetcher.TokenBalance do
   end
 
   def fetch_from_blockchain(params_list) do
+     Logger.info("fetch_from_blockchain 1")
+     Logger.info(params_list)
     retryable_params_list =
       params_list
       |> Enum.filter(&(&1.retries_count <= @max_retries))
@@ -117,6 +119,7 @@ defmodule Indexer.Fetcher.TokenBalance do
             |> Map.put(:failed_token_balances, failed_token_balances)
 
           {:cont, token_balances_updated_retries_count}
+             Logger.info("fetch_from_blockchain 2")
         end
       end)
 
@@ -133,7 +136,7 @@ defmodule Indexer.Fetcher.TokenBalance do
     addresses_params = format_and_filter_address_params(token_balances_params)
     formatted_token_balances_params = format_and_filter_token_balance_params(token_balances_params)
     Logger.info("import_token_balances---");
-    Logger.info(token_balances_params)
+    Logger.info(formatted_token_balances_params)
     import_params = %{
       addresses: %{params: addresses_params},
       address_token_balances: %{params: formatted_token_balances_params},
