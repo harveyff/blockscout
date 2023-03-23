@@ -94,7 +94,6 @@ defmodule Indexer.Fetcher.TokenBalance do
 
   def fetch_from_blockchain(params_list) do
      Logger.info("fetch_from_blockchain 1")
-     Logger.info(params_list)
     retryable_params_list =
       params_list
       |> Enum.filter(&(&1.retries_count <= @max_retries))
