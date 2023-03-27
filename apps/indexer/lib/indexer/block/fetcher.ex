@@ -124,7 +124,9 @@ defmodule Indexer.Block.Fetcher do
       when callback_module != nil do
     {fetch_time, fetched_blocks} =
       :timer.tc(fn -> EthereumJSONRPC.fetch_blocks_by_range(range, json_rpc_named_arguments) end)
-
+      if fetch_time>2000000 do
+        Logger.info("a2,#{fetch_time}");
+      end
     with {:blocks,
           {:ok,
            %Blocks{
