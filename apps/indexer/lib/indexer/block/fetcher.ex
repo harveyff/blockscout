@@ -54,7 +54,7 @@ defmodule Indexer.Block.Fetcher do
               t,
               %{
 
-                blocks: Import.Runner.options()
+                blocks: Import.Runner.options(),
 
                 transactions: Import.Runner.options()
               }
