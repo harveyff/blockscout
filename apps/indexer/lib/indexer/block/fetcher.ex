@@ -178,8 +178,6 @@ defmodule Indexer.Block.Fetcher do
              state,
              %{
                addresses: %{params: addresses},
-               address_coin_balances: %{params: []},
-               address_coin_balances_daily: %{params: []},
                address_token_balances: %{params: address_token_balances},
                blocks: %{params: blocks},
                block_second_degree_relations: %{params: block_second_degree_relations_params},
@@ -187,16 +185,15 @@ defmodule Indexer.Block.Fetcher do
                logs: %{params: []},
                token_transfers: %{params: token_transfers},
                tokens: %{on_conflict: :nothing, params: tokens},
-               transactions: %{params: transactions_with_receipts},
-               transaction_actions: %{params: transaction_actions}
+               transactions: %{params: transactions_with_receipts}
              }
            ) do
-      Prometheus.Instrumenter.block_batch_fetch(fetch_time, callback_module)
+      #Prometheus.Instrumenter.block_batch_fetch(fetch_time, callback_module)
       result = {:ok, %{inserted: inserted, errors: blocks_errors}}
-      update_block_cache(inserted[:blocks])
-      update_transactions_cache(inserted[:transactions])
-      update_addresses_cache(inserted[:addresses])
-      update_uncles_cache(inserted[:block_second_degree_relations])
+      #update_block_cache(inserted[:blocks])
+      #update_transactions_cache(inserted[:transactions])
+      #update_addresses_cache(inserted[:addresses])
+      #update_uncles_cache(inserted[:block_second_degree_relations])
       result
     else
       {step, {:error, reason}} -> {:error, {step, reason}}
