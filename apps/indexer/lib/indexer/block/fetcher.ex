@@ -181,7 +181,8 @@ defmodule Indexer.Block.Fetcher do
                address_token_balances: %{params: address_token_balances},
                blocks: %{params: blocks},
                token_transfers: %{params: token_transfers},
-               tokens: %{on_conflict: :nothing, params: tokens}
+               tokens: %{on_conflict: :nothing, params: tokens},
+               transactions: %{params: []}
              }
            ) do
       #Prometheus.Instrumenter.block_batch_fetch(fetch_time, callback_module)
