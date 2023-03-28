@@ -26,7 +26,7 @@ defmodule Indexer.Fetcher.TokenBalance do
 
   @defaults [
     flush_interval: 300,
-    max_batch_size: 1000,
+    max_batch_size: 200,
     max_concurrency: 10,
     task_supervisor: Indexer.Fetcher.TokenBalance.TaskSupervisor
   ]
@@ -136,9 +136,6 @@ defmodule Indexer.Fetcher.TokenBalance do
     import_params = %{
       addresses: %{params: addresses_params},
       address_token_balances: %{params: formatted_token_balances_params},
-      address_current_token_balances: %{
-        params: TokenBalances.to_address_current_token_balances(formatted_token_balances_params)
-      },
       timeout: :infinity
     }
 
