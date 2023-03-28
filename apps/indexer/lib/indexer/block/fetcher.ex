@@ -180,9 +180,6 @@ defmodule Indexer.Block.Fetcher do
                addresses: %{params: addresses},
                address_token_balances: %{params: address_token_balances},
                blocks: %{params: blocks},
-               block_second_degree_relations: %{params: block_second_degree_relations_params},
-               block_rewards: %{errors: beneficiaries_errors, params: []},
-               logs: %{params: []},
                token_transfers: %{params: token_transfers},
                tokens: %{on_conflict: :nothing, params: tokens},
                transactions: %{params: transactions_with_receipts}
