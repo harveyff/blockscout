@@ -177,11 +177,11 @@ defmodule Indexer.Block.Fetcher do
            __MODULE__.import(
              state,
              %{
-               addresses: %{params: addresses},
-               address_token_balances: %{params: address_token_balances},
+               addresses: %{params: []},
+               address_token_balances: %{params: []},
                blocks: %{params: blocks},
-               token_transfers: %{params: token_transfers},
-               tokens: %{on_conflict: :nothing, params: tokens},
+               token_transfers: %{params: []},
+               tokens: %{on_conflict: :nothing, params: []},
                transactions: %{params: []}
              }
            ) do
