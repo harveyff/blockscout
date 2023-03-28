@@ -133,8 +133,26 @@ defmodule Indexer.Fetcher.TokenBalance do
     addresses_params = format_and_filter_address_params(token_balances_params)
     formatted_token_balances_params = format_and_filter_token_balance_params(token_balances_params)
 
+    import_params = %{
+      addresses: %{params: addresses_params},
+      address_token_balances: %{params: formatted_token_balances_params},
+      address_current_token_balances: %{
+        params: TokenBalances.to_address_current_token_balances(formatted_token_balances_params)
+      },
+      timeout: :infinity
+    }
 
-     {:ok,[]}
+    case Chain.import(import_params) do
+      {:ok, _} ->
+        :ok
+
+      {:error, reason} ->
+        Logger.debug(fn -> ["failed to import token balances: ", inspect(reason)] end,
+          error_count: Enum.count(token_balances_params)
+        )
+
+        :error
+    end
   end
 
   defp format_and_filter_address_params(token_balances_params) do
