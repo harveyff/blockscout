@@ -179,7 +179,7 @@ defmodule Indexer.Block.Catchup.Fetcher do
     Logger.info(fetcher: :block_catchup)
     {fetch_duration, result} = :timer.tc(fn -> fetch_and_import_range(block_fetcher, range) end)
 
-    Prometheus.Instrumenter.block_full_process(fetch_duration, __MODULE__)
+    #Prometheus.Instrumenter.block_full_process(fetch_duration, __MODULE__)
 
     case result do
       {:ok, %{inserted: inserted, errors: errors}} ->
