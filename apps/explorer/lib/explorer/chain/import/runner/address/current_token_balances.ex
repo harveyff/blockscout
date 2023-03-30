@@ -118,7 +118,7 @@ defmodule Explorer.Chain.Import.Runner.Address.CurrentTokenBalances do
         end)
         |> Enum.uniq()
 
-      #Tokens.acquire_contract_address_tokens(repo, token_contract_address_hashes_and_ids)
+      Tokens.acquire_contract_address_tokens(repo, token_contract_address_hashes_and_ids)
     end
 
     multi
