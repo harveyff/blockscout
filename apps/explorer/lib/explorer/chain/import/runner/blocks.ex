@@ -185,21 +185,6 @@ defmodule Explorer.Chain.Import.Runner.Blocks do
         :derive_address_current_token_balances
       )
     end)
-    |> Multi.run(:blocks_update_token_holder_counts, fn repo,
-                                                        %{
-                                                          delete_address_current_token_balances: deleted,
-                                                          derive_address_current_token_balances: inserted
-                                                        } ->
-      Instrumenter.block_import_stage_runner(
-        fn ->
-          deltas = CurrentTokenBalances.token_holder_count_deltas(%{deleted: deleted, inserted: inserted})
-          Tokens.update_holder_counts_with_deltas(repo, deltas, insert_options)
-        end,
-        :address_referencing,
-        :blocks,
-        :blocks_update_token_holder_counts
-      )
-    end)
   end
 
   @impl Runner

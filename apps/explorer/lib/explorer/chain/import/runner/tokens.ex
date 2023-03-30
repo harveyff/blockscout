@@ -4,7 +4,7 @@ defmodule Explorer.Chain.Import.Runner.Tokens do
   """
 
   require Ecto.Query
-
+  require Logger
   import Ecto.Query, only: [from: 2]
 
   alias Ecto.{Multi, Repo}
@@ -94,6 +94,7 @@ defmodule Explorer.Chain.Import.Runner.Tokens do
         timeout: timeout,
         timestamps: %{updated_at: updated_at}
       }) do
+      Logger.info("update_holder_counts_with_deltas");
     # NOTE that acquire_contract_address_tokens needs to be called before this
     {hashes, deltas} =
       token_holder_count_deltas
