@@ -149,7 +149,14 @@ defmodule Explorer.Chain.Import.Runner.Blocks do
         :derive_transaction_forks
       )
     end)
-
+    |> Multi.run(:acquire_contract_address_tokens, fn repo, _ ->
+      Instrumenter.block_import_stage_runner(
+        fn -> acquire_contract_address_tokens(repo, consensus_block_numbers) end,
+        :address_referencing,
+        :blocks,
+        :acquire_contract_address_tokens
+      )
+    end)
     |> Multi.run(:delete_address_token_balances, fn repo, _ ->
       Instrumenter.block_import_stage_runner(
         fn -> delete_address_token_balances(repo, consensus_block_numbers, insert_options) end,
@@ -178,6 +185,7 @@ defmodule Explorer.Chain.Import.Runner.Blocks do
         :derive_address_current_token_balances
       )
     end)
+
   end
 
   @impl Runner
