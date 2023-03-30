@@ -111,7 +111,7 @@ defmodule Indexer.Fetcher.TokenBalance do
           {:halt, token_balances}
         else
           failed_token_balances = increase_retries_count(failed_token_balances)
-
+          Logger.info("fetch_from_blockchain failed_token_balances");
           token_balances_updated_retries_count =
             token_balances
             |> Map.put(:failed_token_balances, failed_token_balances)
