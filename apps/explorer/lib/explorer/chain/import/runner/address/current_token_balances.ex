@@ -121,7 +121,6 @@ defmodule Explorer.Chain.Import.Runner.Address.CurrentTokenBalances do
       #Tokens.acquire_contract_address_tokens(repo, token_contract_address_hashes_and_ids)
     end
 
-
   end
 
   defp get_token_id(change) do
