@@ -115,7 +115,7 @@ defmodule Indexer.Fetcher.TokenBalance do
           token_balances_updated_retries_count =
             token_balances
             |> Map.put(:failed_token_balances, failed_token_balances)
-          Logger.info("failed_token_balances:#{token_balances_updated_retries_count}");
+          Logger.info("failed_token_balances");
           {:cont, token_balances_updated_retries_count}
         end
       end)
