@@ -26,7 +26,7 @@ defmodule Indexer.Fetcher.TokenBalance do
 
   @defaults [
     flush_interval: 300,
-    max_batch_size: 100,
+    max_batch_size: 300,
     max_concurrency: 10,
     task_supervisor: Indexer.Fetcher.TokenBalance.TaskSupervisor
   ]
@@ -111,11 +111,11 @@ defmodule Indexer.Fetcher.TokenBalance do
           {:halt, token_balances}
         else
           failed_token_balances = increase_retries_count(failed_token_balances)
-          Logger.info("fetch_from_blockchain failed_token_balances");
+
           token_balances_updated_retries_count =
             token_balances
             |> Map.put(:failed_token_balances, failed_token_balances)
-
+          Logger.info("fetch_from_blockchain failed_token_balances #{token_balances_updated_retries_count}");
           {:cont, token_balances_updated_retries_count}
         end
       end)

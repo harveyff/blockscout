@@ -23,7 +23,7 @@ defmodule Indexer.Fetcher.InternalTransaction do
   @behaviour BufferedTask
 
   @default_max_batch_size 10
-  @default_max_concurrency 4
+  @default_max_concurrency 20
 
   @doc """
   Asynchronously fetches internal transactions.
@@ -144,6 +144,7 @@ defmodule Indexer.Fetcher.InternalTransaction do
   end
 
   def import_first_trace(internal_transactions_params) do
+  Logger.info("import_first_trace");
     imports =
       Chain.import(%{
         internal_transactions: %{params: internal_transactions_params, with: :blockless_changeset},
@@ -165,6 +166,7 @@ defmodule Indexer.Fetcher.InternalTransaction do
   end
 
   defp fetch_block_internal_transactions_by_transactions(unique_numbers, json_rpc_named_arguments) do
+   Logger.info("fetch_block_internal_transactions_by_transactions");
     Enum.reduce(unique_numbers, {:ok, []}, fn
       block_number, {:ok, acc_list} ->
         block_number
@@ -193,6 +195,7 @@ defmodule Indexer.Fetcher.InternalTransaction do
   end
 
   defp safe_import_internal_transaction(internal_transactions_params, block_numbers) do
+   Logger.info("safe_import_internal_transaction");
     import_internal_transaction(internal_transactions_params, block_numbers)
   rescue
     Postgrex.Error ->
@@ -201,6 +204,7 @@ defmodule Indexer.Fetcher.InternalTransaction do
   end
 
   defp import_internal_transaction(internal_transactions_params, unique_numbers) do
+  Logger.info("import_internal_transaction");
     internal_transactions_params_without_failed_creations = remove_failed_creations(internal_transactions_params)
 
     addresses_params =
