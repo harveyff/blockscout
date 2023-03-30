@@ -95,7 +95,7 @@ defmodule Indexer.Supervisor do
     basic_fetchers =
       [
         # Root fetchers
-        {PendingTransaction.Supervisor, [[json_rpc_named_arguments: json_rpc_named_arguments]]},
+        #{PendingTransaction.Supervisor, [[json_rpc_named_arguments: json_rpc_named_arguments]]},
 
         # Async catchup fetchers
         {UncleBlock.Supervisor, [[block_fetcher: block_fetcher, memory_monitor: memory_monitor]]},
