@@ -67,15 +67,7 @@ defmodule Explorer.Chain.Import.Runner.Addresses do
         :addresses
       )
     end)
-    |> Multi.run(:created_address_code_indexed_at_transactions, fn repo, %{addresses: addresses}
-                                                                   when is_list(addresses) ->
-      Instrumenter.block_import_stage_runner(
-        fn -> update_transactions(repo, addresses, update_transactions_options) end,
-        :addresses,
-        :addresses,
-        :created_address_code_indexed_at_transactions
-      )
-    end)
+
   end
 
   @impl Import.Runner
