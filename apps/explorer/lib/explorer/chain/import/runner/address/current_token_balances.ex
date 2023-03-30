@@ -121,14 +121,7 @@ defmodule Explorer.Chain.Import.Runner.Address.CurrentTokenBalances do
       #Tokens.acquire_contract_address_tokens(repo, token_contract_address_hashes_and_ids)
     end
 
-    Multi.run(:address_current_token_balances, fn repo, _ ->
-      Instrumenter.block_import_stage_runner(
-        fn -> insert(repo, changes_list, insert_options) end,
-        :block_following,
-        :current_token_balances,
-        :current_token_balances
-      )
-    end)
+
   end
 
   defp get_token_id(change) do
