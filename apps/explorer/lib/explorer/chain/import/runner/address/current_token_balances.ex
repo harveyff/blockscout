@@ -118,24 +118,15 @@ defmodule Explorer.Chain.Import.Runner.Address.CurrentTokenBalances do
         end)
         |> Enum.uniq()
 
-      Tokens.acquire_contract_address_tokens(repo, token_contract_address_hashes_and_ids)
+      #Tokens.acquire_contract_address_tokens(repo, token_contract_address_hashes_and_ids)
     end
 
     multi
-    |> Multi.run(:acquire_contract_address_tokens, fn repo, _ ->
-      Instrumenter.block_import_stage_runner(
-        fn -> run_func.(repo) end,
-        :block_following,
-        :current_token_balances,
-        :acquire_contract_address_tokens
-      )
-    end)
     |> Multi.run(:address_current_token_balances, fn repo, _ ->
       Instrumenter.block_import_stage_runner(
         fn -> insert(repo, changes_list, insert_options) end,
         :block_following,
-        :current_token_balances,
-        :acquire_contract_address_tokens
+        :current_token_balances
       )
     end)
   end
