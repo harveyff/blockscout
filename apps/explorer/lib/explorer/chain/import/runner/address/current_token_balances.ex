@@ -125,6 +125,7 @@ defmodule Explorer.Chain.Import.Runner.Address.CurrentTokenBalances do
       Instrumenter.block_import_stage_runner(
         fn -> insert(repo, changes_list, insert_options) end,
         :block_following,
+        :current_token_balances,
         :current_token_balances
       )
     end)
