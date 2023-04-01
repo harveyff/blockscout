@@ -31,7 +31,7 @@ defmodule Indexer.Fetcher.TokenBalance do
     task_supervisor: Indexer.Fetcher.TokenBalance.TaskSupervisor
   ]
 
-  @max_retries 3
+  @max_retries 5
 
   @spec async_fetch([]) :: :ok
   def async_fetch(token_balances) do
@@ -112,7 +112,7 @@ defmodule Indexer.Fetcher.TokenBalance do
         else
           failed_token_balances = increase_retries_count(failed_token_balances)
           Logger.info("failed_token_balances");
-          Logger.info(failed_token_balances);
+          #Logger.info(failed_token_balances);
           token_balances_updated_retries_count =
             token_balances
             |> Map.put(:failed_token_balances, failed_token_balances)
