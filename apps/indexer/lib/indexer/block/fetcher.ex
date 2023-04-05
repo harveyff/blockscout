@@ -22,7 +22,7 @@ defmodule Indexer.Block.Fetcher do
     CoinBalance,
     ContractCode,
     InternalTransaction,
-    ReplacedTransaction,
+    #ReplacedTransaction,
     Token,
     TokenBalance,
     TokenInstance,
