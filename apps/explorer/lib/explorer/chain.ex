@@ -5100,7 +5100,6 @@ defmodule Explorer.Chain do
   def update_token(%Token{contract_address_hash: address_hash} = token, params \\ %{}) do
     Logger.info('update_token---');
      {:ok, token}
-    end
   end
 
   @spec fetch_last_token_balances(Hash.Address.t(), [api?]) :: []
