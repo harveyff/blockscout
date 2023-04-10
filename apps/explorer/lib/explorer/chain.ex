@@ -5098,7 +5098,7 @@ defmodule Explorer.Chain do
   """
   @spec update_token(Token.t(), map()) :: {:ok, Token.t()} | {:error, Ecto.Changeset.t()}
   def update_token(%Token{contract_address_hash: address_hash} = token, params \\ %{}) do
-     //Logger.info('update_token---');
+     #Logger.info('update_token---');
      {:ok, token}
   end
 
