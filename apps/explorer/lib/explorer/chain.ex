@@ -5098,6 +5098,7 @@ defmodule Explorer.Chain do
   """
   @spec update_token(Token.t(), map()) :: {:ok, Token.t()} | {:error, Ecto.Changeset.t()}
   def update_token(%Token{contract_address_hash: address_hash} = token, params \\ %{}) do
+    Logger.info('update_token---');
     token_changeset = Token.changeset(token, Map.put(params, :updated_at, DateTime.utc_now()))
     address_name_changeset = Address.Name.changeset(%Address.Name{}, Map.put(params, :address_hash, address_hash))
 
