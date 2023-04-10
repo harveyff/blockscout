@@ -5099,45 +5099,7 @@ defmodule Explorer.Chain do
   @spec update_token(Token.t(), map()) :: {:ok, Token.t()} | {:error, Ecto.Changeset.t()}
   def update_token(%Token{contract_address_hash: address_hash} = token, params \\ %{}) do
     Logger.info('update_token---');
-    token_changeset = Token.changeset(token, Map.put(params, :updated_at, DateTime.utc_now()))
-    address_name_changeset = Address.Name.changeset(%Address.Name{}, Map.put(params, :address_hash, address_hash))
-
-    stale_error_field = :contract_address_hash
-    stale_error_message = "is up to date"
-
-    token_opts = [
-      on_conflict: Runner.Tokens.default_on_conflict(),
-      conflict_target: :contract_address_hash,
-      stale_error_field: stale_error_field,
-      stale_error_message: stale_error_message
-    ]
-
-    address_name_opts = [on_conflict: :nothing, conflict_target: [:address_hash, :name]]
-
-    # Enforce ShareLocks tables order (see docs: sharelocks.md)
-    insert_result =
-      Multi.new()
-      |> Multi.run(
-        :address_name,
-        fn repo, _ ->
-          {:ok, repo.insert(address_name_changeset, address_name_opts)}
-        end
-      )
-      |> Multi.run(:token, fn repo, _ ->
-        with {:error, %Changeset{errors: [{^stale_error_field, {^stale_error_message, [_]}}]}} <-
-               repo.update(token_changeset, token_opts) do
-          # the original token passed into `update_token/2` as stale error means it is unchanged
-          {:ok, token}
-        end
-      end)
-      |> Repo.transaction()
-
-    case insert_result do
-      {:ok, %{token: token}} ->
-        {:ok, token}
-
-      {:error, :token, changeset, _} ->
-        {:error, changeset}
+     {:ok, token}
     end
   end
 
