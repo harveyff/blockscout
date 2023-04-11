@@ -321,6 +321,7 @@ defmodule Indexer.Block.Fetcher do
   def async_import_token_balances(_), do: :ok
 
   def async_import_uncles(%{block_second_degree_relations: block_second_degree_relations}) do
+    Logger.info('async_import_uncles--');
     UncleBlock.async_fetch_blocks(block_second_degree_relations)
   end
 

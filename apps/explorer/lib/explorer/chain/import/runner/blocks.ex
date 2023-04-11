@@ -96,21 +96,6 @@ defmodule Explorer.Chain.Import.Runner.Blocks do
         :new_pending_operations
       )
     end)
-    |> Multi.run(:uncle_fetched_block_second_degree_relations, fn repo, _ ->
-      Instrumenter.block_import_stage_runner(
-        fn ->
-          update_block_second_degree_relations(repo, hashes, %{
-            timeout:
-              options[Runner.Block.SecondDegreeRelations.option_key()][:timeout] ||
-                Runner.Block.SecondDegreeRelations.timeout(),
-            timestamps: timestamps
-          })
-        end,
-        :address_referencing,
-        :blocks,
-        :uncle_fetched_block_second_degree_relations
-      )
-    end)
     |> Multi.run(:delete_rewards, fn repo, _ ->
       Instrumenter.block_import_stage_runner(
         fn -> delete_rewards(repo, changes_list, insert_options) end,
