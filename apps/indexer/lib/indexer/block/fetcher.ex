@@ -25,8 +25,8 @@ defmodule Indexer.Block.Fetcher do
     #ReplacedTransaction,
     Token,
     TokenBalance,
-    TokenInstance,
-    UncleBlock
+    TokenInstance
+    #UncleBlock
   }
 
   alias Indexer.{Prometheus, Tracer}

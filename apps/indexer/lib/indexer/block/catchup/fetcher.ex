@@ -17,7 +17,7 @@ defmodule Indexer.Block.Catchup.Fetcher do
       async_import_tokens: 1,
       async_import_token_balances: 1,
       #async_import_token_instances: 1,
-      async_import_uncles: 1,
+      #async_import_uncles: 1,
       fetch_and_import_range: 2
     ]
 
@@ -145,7 +145,7 @@ defmodule Indexer.Block.Catchup.Fetcher do
     async_import_internal_transactions(imported)
     async_import_tokens(imported)
     async_import_token_balances(imported)
-    async_import_uncles(imported)
+    #async_import_uncles(imported)
     #async_import_replaced_transactions(imported)
     #async_import_token_instances(imported)
   end
